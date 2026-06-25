@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: "0 18 * * *"    # daily — see note below to set your time
 
+permissions:
+    contents: write          # ← lets the action push commits
+
 jobs:
   sync:
     runs-on: ubuntu-latest
