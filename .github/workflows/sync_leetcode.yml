@@ -1,0 +1,22 @@
+name: Sync LeetCode
+
+on:
+  workflow_dispatch:        # manual trigger button in the Actions tab
+  schedule:
+    - cron: "0 18 * * *"    # daily — see note below to set your time
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sync solutions
+        uses: joshcai/leetcode-sync@v1.6
+        with:
+          github-token: ${{ github.token }}
+          leetcode-session: ${{ secrets.LEETCODE_SESSION }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+          destination-folder: problems
+          filter-duplicate-secs: 86400
+          commit-header: "Sync LeetCode submission"
+          verbose: true
