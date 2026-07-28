@@ -1,7 +1,7 @@
 class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-        if(m==0) nums1=nums2;
+        if(m==0) {nums1=nums2;return;}
         if(n==0) return;
         int r1=m-1;
         int r2=n-1;
@@ -20,13 +20,6 @@ public:
                 nums1[index]=nums2[r2];
                 index--;
                 r2--;
-            }
-        }
-        else{
-            while(r1>-1){
-                nums1[index]=nums1[r1];
-                index--;
-                r1--;
             }
         }
     }
