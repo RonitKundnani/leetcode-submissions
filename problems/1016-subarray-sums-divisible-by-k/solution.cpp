@@ -1,15 +1,17 @@
 class Solution {
 public:
     int subarraysDivByK(vector<int>& nums, int k) {
-        int n = nums.size();
-        int prefixMod = 0, result = 0;
-        vector<int> modGroups(k);
-        modGroups[0] = 1;
-        for (int num : nums) {
-            prefixMod = (prefixMod + num % k + k) % k;
-            result += modGroups[prefixMod];
-            modGroups[prefixMod]++;
-        }
-        return result;
+        unordered_map<int,int> m;
+        m[0]=1;
+        int sum=0;
+        int cnt=0;
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+            int mod=sum%k;
+            if(mod<0) mod+=k;
+            if(m.find(mod)!=m.end()){
+                cnt+=m[mod];
+            }m[mod]+=1;
+        }return cnt;
     }
 };
