@@ -1,19 +1,20 @@
 class Solution {
 public:
+    int nextNum(int n) {
+        int sum = 0;
+        while (n) {
+            int digit = n % 10;
+            sum += digit * digit;
+            n /= 10;
+        }return sum;
+    }
+
     bool isHappy(int n) {
-        unordered_set<int> check;
-        while(true){
-            if(check.contains(n)) return false;
-            else{
-                if(n==1) break;
-                check.insert(n);
-                int next=0;
-                while(n){
-                    next+=(n%10)*(n%10);
-                    n/=10;
-                }
-                n=next;
-            }
-        }return true;
+        int slow = n;
+        int fast = nextNum(n);
+        while (fast != 1 && slow != fast) {
+            slow = nextNum(slow);
+            fast = nextNum(nextNum(fast));
+        }return fast == 1;
     }
 };
