@@ -1,27 +1,14 @@
 class Solution {
 public:
     int countGroups(vector<int>& position, vector<int>& speed, int distance) {
-        int n=position.size();
-        if(n==1) return 1;
-        vector<int> s,p;
-        for(int i=0;i<n;i++){
-            if(!p.empty() and position[i]-p.back()<=distance){
-                p.back()=position[i];
-                s.back()=speed[i];
-            }else{
-                p.push_back(position[i]);
-                s.push_back(speed[i]);
+        int ans=speed.size();
+        int fspd=speed[speed.size()-1];
+        for(int i=speed.size()-2;i>=0;i--){
+            if(fspd<speed[i]||(position[i+1]-position[i]<=distance)){
+                ans--;
             }
+            else fspd=speed[i];
         }
-        int groups=p.size();
-        vector<int> st;
-        for(int i=groups-1;i>=0;i--){
-            if(st.empty()){
-                st.push_back(i);
-                continue;
-            }int j=st.back();
-            if(p[j]-p[i]<=distance or s[i]>s[j]) continue;
-            st.push_back(i);
-        }return st.size();
+        return ans;
     }
 };
